@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8t1qm0p0p0t1"]
+[gd_scene load_steps=6 format=3 uid="uid://b8t1qm0p0p0t1"]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_title"]
+[ext_resource type="Theme" path="res://resources/theme/dnd_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/textures/parchment_bg.svg" id="3_parchment"]
+[ext_resource type="Texture2D" path="res://assets/title/wooden_plank.svg" id="4_plank"]
+[ext_resource type="FontFile" path="res://resources/fonts/Kalam-Regular.ttf" id="5_kalam"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -9,16 +13,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
 script = ExtResource("1_title")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.86, 0.78, 0.62, 1)
+texture = ExtResource("3_parchment")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="BaseTitle" type="Label" parent="."]
 layout_mode = 1
@@ -26,11 +33,12 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -400.0
-offset_top = 80.0
+offset_top = 60.0
 offset_right = 400.0
-offset_bottom = 200.0
+offset_bottom = 180.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 96
+theme_override_colors/font_color = Color(0.22, 0.14, 0.05, 1)
 text = "Minesweeper"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -40,23 +48,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -360.0
-offset_top = 100.0
-offset_right = 360.0
-offset_bottom = 220.0
+offset_left = -500.0
+offset_top = 40.0
+offset_right = 500.0
+offset_bottom = 240.0
 grow_horizontal = 2
 rotation = -0.3
-pivot_offset = Vector2(360, 60)
-modulate = Color(0.55, 0.36, 0.18, 1)
-
-[node name="PlankBg" type="ColorRect" parent="PlankOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.45, 0.28, 0.13, 1)
+pivot_offset = Vector2(500, 100)
+texture = ExtResource("4_plank")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="PlankTitle" type="Label" parent="PlankOverlay"]
 layout_mode = 1
@@ -65,8 +66,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(0.95, 0.9, 0.78, 1)
+theme_override_fonts/font = ExtResource("5_kalam")
+theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.96, 0.9, 0.76, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 text = "Minesweeper"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -78,27 +83,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = 40.0
-offset_right = 120.0
-offset_bottom = 280.0
+offset_left = -140.0
+offset_top = 60.0
+offset_right = 140.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 18
 
 [node name="QuestForthButton" type="Button" parent="ButtonColumn"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
 text = "Quest Forth"
 
 [node name="ProvisionsButton" type="Button" parent="ButtonColumn"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
 text = "Provisions"
 
 [node name="FleeButton" type="Button" parent="ButtonColumn"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
 text = "Flee"
 
 [connection signal="pressed" from="ButtonColumn/QuestForthButton" to="." method="_on_quest_forth_pressed"]

@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b8t1qm0p0p0t4"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_over"]
+[ext_resource type="Theme" path="res://resources/theme/dnd_theme.tres" id="2_theme"]
+
+[node name="GameOver" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_over")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+mouse_filter = 0
+
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(440, 260)
+theme = ExtResource("2_theme")
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Heading" type="Label" parent="Center/Panel/VBox"]
+theme_override_font_sizes/font_size = 48
+text = "Victory!"
+horizontal_alignment = 1
+
+[node name="Subheading" type="Label" parent="Center/Panel/VBox"]
+theme_override_font_sizes/font_size = 22
+text = "The dungeon is cleared."
+horizontal_alignment = 1
+
+[node name="ButtonRow" type="HBoxContainer" parent="Center/Panel/VBox"]
+alignment = 1
+theme_override_constants/separation = 24
+
+[node name="RetryButton" type="Button" parent="Center/Panel/VBox/ButtonRow"]
+text = "Quest Anew"
+
+[node name="TitleButton" type="Button" parent="Center/Panel/VBox/ButtonRow"]
+text = "Return to Tavern"
+
+[connection signal="pressed" from="Center/Panel/VBox/ButtonRow/RetryButton" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Center/Panel/VBox/ButtonRow/TitleButton" to="." method="_on_title_pressed"]

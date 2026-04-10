@@ -1,0 +1,91 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b8t1qm0p0p0th1"]
+
+[ext_resource type="FontFile" path="res://resources/fonts/UncialAntiqua-Regular.ttf" id="1_uncial"]
+
+[sub_resource type="StyleBoxFlat" id="BtnNormal"]
+bg_color = Color(0.45, 0.28, 0.13, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.15, 0.08, 0.02, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="BtnHover"]
+bg_color = Color(0.6, 0.4, 0.2, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.1, 0.04, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="BtnPressed"]
+bg_color = Color(0.3, 0.18, 0.08, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.1, 0.05, 0.01, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.78, 0.66, 0.44, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.32, 0.2, 0.08, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StatusStyle"]
+bg_color = Color(0.18, 0.1, 0.04, 0.85)
+border_width_top = 2
+border_color = Color(0.55, 0.36, 0.18, 1)
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+
+[resource]
+default_font = ExtResource("1_uncial")
+Button/colors/font_color = Color(0.96, 0.9, 0.76, 1)
+Button/colors/font_hover_color = Color(1, 0.96, 0.82, 1)
+Button/colors/font_pressed_color = Color(0.8, 0.74, 0.6, 1)
+Button/font_sizes/font_size = 24
+Button/styles/normal = SubResource("BtnNormal")
+Button/styles/hover = SubResource("BtnHover")
+Button/styles/pressed = SubResource("BtnPressed")
+Button/styles/focus = SubResource("BtnHover")
+Label/colors/font_color = Color(0.22, 0.14, 0.05, 1)
+Label/font_sizes/font_size = 20
+Panel/styles/panel = SubResource("PanelStyle")
+PanelContainer/styles/panel = SubResource("StatusStyle")
