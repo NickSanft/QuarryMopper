@@ -17,7 +17,7 @@ func _ready() -> void:
         subheading.text = "The dungeon is cleared."
         heading.add_theme_color_override("font_color", Color(0.95, 0.82, 0.32))
     else:
-        heading.text = "You have perished..."
+        heading.text = "You take 1 damage"
         subheading.text = "The depths claim another adventurer."
         heading.add_theme_color_override("font_color", Color(0.78, 0.18, 0.14))
     # Fade in.

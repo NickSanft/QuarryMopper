@@ -70,7 +70,7 @@ func _on_cell_reveal(cell: Cell) -> void:
 			SfxPlayer.play("victory")
 		else:
 			game_lost.emit()
-			status_label.text = "You have perished in the depths..."
+			status_label.text = "You take 1 damage"
 			SfxPlayer.play("explosion")
 		_show_game_over(logic.won)
 	else:
@@ -119,24 +119,21 @@ func _show_game_over(won: bool) -> void:
 
 
 func _assign_correction() -> void:
-	# Find all non-mine, non-zero cells and pick one to display a "miscount".
+	# Find all non-mine, non-zero cells and pick three to display "miscounts".
 	var candidates: Array[int] = []
 	for y in range(logic.height):
 		for x in range(logic.width):
 			if not logic.cell_is_mine(x, y) and logic.cell_adjacent(x, y) > 0:
 				candidates.append(logic.idx(x, y))
-	if candidates.is_empty():
-		_correction_assigned = true
-		return
-	var target_idx: int = candidates[randi() % candidates.size()]
-	var target_cell: Cell = cells[target_idx]
-	var real := target_cell.adjacent_mines if target_cell.adjacent_mines > 0 \
-			else logic.cell_adjacent(target_cell.grid_pos.x, target_cell.grid_pos.y)
-	# Pick a "wrong" digit in [1, 8] that isn't the real one.
-	var wrong := real
-	while wrong == real:
-		wrong = randi_range(1, 8)
-	target_cell.correction_wrong = wrong
+	candidates.shuffle()
+	var picks: int = mini(3, candidates.size())
+	for i in range(picks):
+		var target_cell: Cell = cells[candidates[i]]
+		var real := logic.cell_adjacent(target_cell.grid_pos.x, target_cell.grid_pos.y)
+		var wrong := real
+		while wrong == real:
+			wrong = randi_range(1, 8)
+		target_cell.correction_wrong = wrong
 	_correction_assigned = true
 
 

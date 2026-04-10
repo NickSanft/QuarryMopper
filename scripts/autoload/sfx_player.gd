@@ -8,6 +8,7 @@ const SOUNDS := {
     "explosion": preload("res://resources/audio/explosion.ogg"),
     "victory": preload("res://resources/audio/victory.ogg"),
     "creak": preload("res://resources/audio/creak.ogg"),
+    "please_dont_leave": preload("res://resources/audio/PleaseDontLeave.mp3"),
 }
 
 const MUSIC := {
