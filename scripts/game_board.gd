@@ -73,6 +73,7 @@ func _on_cell_reveal(cell: Cell) -> void:
 			game_lost.emit()
 			status_label.text = "You take 1 damage"
 			SfxPlayer.play("explosion")
+			SfxPlayer.play("big_sux")
 		_show_game_over(logic.won)
 	else:
 		SfxPlayer.play("reveal")

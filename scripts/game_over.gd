@@ -18,7 +18,7 @@ func _ready() -> void:
         heading.add_theme_color_override("font_color", Color(0.95, 0.82, 0.32))
     else:
         heading.text = "You take 1 damage"
-        subheading.text = "The depths claim another adventurer."
+        subheading.text = "Spikes come out of the ground and the room resets"
         heading.add_theme_color_override("font_color", Color(0.78, 0.18, 0.14))
     # Fade in.
     var root: Control = $Center
