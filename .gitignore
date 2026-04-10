@@ -1,3 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Build output
+/build/
+
+# GdUnit4 is installed by CI; don't commit it.
+/addons/gdUnit4/
+/gdunit4.zip
+/gdunit4_tmp/
+
+# Export templates / local-only paths
+export_presets.cfg.local

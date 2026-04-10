@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8t1qm0p0p0t1"]
+
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_title"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_title")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.86, 0.78, 0.62, 1)
+
+[node name="BaseTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 96
+text = "Minesweeper"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlankOverlay" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 100.0
+offset_right = 360.0
+offset_bottom = 220.0
+grow_horizontal = 2
+rotation = -0.3
+pivot_offset = Vector2(360, 60)
+modulate = Color(0.55, 0.36, 0.18, 1)
+
+[node name="PlankBg" type="ColorRect" parent="PlankOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.45, 0.28, 0.13, 1)
+
+[node name="PlankTitle" type="Label" parent="PlankOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+theme_override_colors/font_color = Color(0.95, 0.9, 0.78, 1)
+text = "Minesweeper"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonColumn" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="QuestForthButton" type="Button" parent="ButtonColumn"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Quest Forth"
+
+[node name="ProvisionsButton" type="Button" parent="ButtonColumn"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Provisions"
+
+[node name="FleeButton" type="Button" parent="ButtonColumn"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Flee"
+
+[connection signal="pressed" from="ButtonColumn/QuestForthButton" to="." method="_on_quest_forth_pressed"]
+[connection signal="pressed" from="ButtonColumn/ProvisionsButton" to="." method="_on_provisions_pressed"]
+[connection signal="pressed" from="ButtonColumn/FleeButton" to="." method="_on_flee_pressed"]
