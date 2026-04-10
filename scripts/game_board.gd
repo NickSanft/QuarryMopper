@@ -15,6 +15,9 @@ var logic: BoardLogic
 var cells: Array = []  # Array[Cell], flat y * width + x
 var _game_over_overlay: CanvasLayer = null
 var _correction_assigned: bool = false
+var _flinching_cell: Cell = null
+var _flinch_rest_pos: Vector2
+var _flinch_tween: Tween = null
 
 
 func _ready() -> void:
@@ -44,6 +47,8 @@ func _build_grid() -> void:
 			c.custom_minimum_size = Vector2(CELL_SIZE, CELL_SIZE)
 			c.reveal_requested.connect(_on_cell_reveal)
 			c.flag_requested.connect(_on_cell_flag)
+			c.mouse_entered.connect(_on_cell_mouse_entered.bind(c))
+			c.mouse_exited.connect(_on_cell_mouse_exited)
 			grid.add_child(c)
 			c.refresh_visual()
 			cells.append(c)
@@ -149,3 +154,63 @@ func _refresh_status() -> void:
 		if c.state == Cell.State.FLAGGED:
 			flagged += 1
 	status_label.text = "Mines: %d  Flags: %d" % [logic.mine_count, flagged]
+
+
+func _on_cell_mouse_entered(cell: Cell) -> void:
+	if logic.game_over or not logic.mines_placed:
+		return
+	if cell.state != Cell.State.HIDDEN:
+		return
+	# Only flinch near mines — the hovered cell must be adjacent to one.
+	var hx := cell.grid_pos.x
+	var hy := cell.grid_pos.y
+	if logic.cell_is_mine(hx, hy) or logic.cell_adjacent(hx, hy) == 0:
+		return
+	# Pick a random neighboring hidden, non-mine cell to flinch.
+	var neighbors: Array[Cell] = []
+	for dy in range(-1, 2):
+		for dx in range(-1, 2):
+			if dx == 0 and dy == 0:
+				continue
+			var nx := hx + dx
+			var ny := hy + dy
+			if logic.in_bounds(nx, ny):
+				var nc: Cell = cells[logic.idx(nx, ny)]
+				if nc.state == Cell.State.HIDDEN and not logic.cell_is_mine(nx, ny):
+					neighbors.append(nc)
+	if neighbors.is_empty():
+		return
+	var victim: Cell = neighbors[randi() % neighbors.size()]
+	_start_flinch(victim, cell)
+
+
+func _on_cell_mouse_exited() -> void:
+	_end_flinch()
+
+
+func _start_flinch(victim: Cell, source: Cell) -> void:
+	_end_flinch()
+	_flinching_cell = victim
+	_flinch_rest_pos = victim.position
+	# Shift away from the hovered cell.
+	var dir := Vector2(victim.grid_pos - source.grid_pos).normalized()
+	if dir.length_squared() < 0.01:
+		dir = Vector2.UP
+	var shift := dir * 3.0
+	if _flinch_tween and _flinch_tween.is_valid():
+		_flinch_tween.kill()
+	_flinch_tween = create_tween()
+	_flinch_tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	_flinch_tween.tween_property(victim, "position", _flinch_rest_pos + shift, 0.25)
+
+
+func _end_flinch() -> void:
+	if _flinching_cell and is_instance_valid(_flinching_cell):
+		if _flinch_tween and _flinch_tween.is_valid():
+			_flinch_tween.kill()
+		_flinch_tween = create_tween()
+		_flinch_tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		_flinch_tween.tween_property(
+			_flinching_cell, "position",
+			_flinch_rest_pos, 0.15)
+	_flinching_cell = null

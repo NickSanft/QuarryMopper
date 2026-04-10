@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8t1qm0p0p0t1"]
+[gd_scene format=3 uid="uid://b8t1qm0p0p0t1"]
 
-[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_title"]
-[ext_resource type="Theme" path="res://resources/theme/dnd_theme.tres" id="2_theme"]
-[ext_resource type="Texture2D" path="res://assets/textures/parchment_bg.svg" id="3_parchment"]
-[ext_resource type="Texture2D" path="res://assets/title/wooden_plank.svg" id="4_plank"]
-[ext_resource type="FontFile" path="res://resources/fonts/Kalam-Regular.ttf" id="5_kalam"]
-[ext_resource type="Texture2D" path="res://assets/title/nail.svg" id="6_nail"]
+[ext_resource type="Script" uid="uid://bbbwdplewnlri" path="res://scripts/title_screen.gd" id="1_title"]
+[ext_resource type="Theme" uid="uid://b43xl13p4kxl1" path="res://resources/theme/dnd_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://c2rpqbuypet67" path="res://assets/textures/parchment_bg.svg" id="3_parchment"]
+[ext_resource type="Texture2D" uid="uid://da1goahffwdpo" path="res://assets/title/wooden_plank.svg" id="4_plank"]
+[ext_resource type="FontFile" uid="uid://s2oekt87oxf6" path="res://resources/fonts/Kalam-Regular.ttf" id="5_kalam"]
+[ext_resource type="Texture2D" uid="uid://bh1ckrjso8nu4" path="res://assets/title/nail.svg" id="6_nail"]
 
-[node name="TitleScreen" type="Control"]
+[node name="TitleScreen" type="Control" unique_id=1907554084]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_title")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1547857537]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ texture = ExtResource("3_parchment")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="BaseTitle" type="Label" parent="."]
+[node name="BaseTitle" type="Label" parent="." unique_id=725856529]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -38,13 +38,13 @@ offset_top = 60.0
 offset_right = 400.0
 offset_bottom = 180.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 96
 theme_override_colors/font_color = Color(0.22, 0.14, 0.05, 1)
+theme_override_font_sizes/font_size = 96
 text = "Minesweeper"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlankOverlay" type="TextureRect" parent="."]
+[node name="PlankOverlay" type="TextureRect" parent="." unique_id=1486443730]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -60,7 +60,7 @@ texture = ExtResource("4_plank")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="NailTL" type="TextureRect" parent="PlankOverlay"]
+[node name="NailTL" type="TextureRect" parent="PlankOverlay" unique_id=702555244]
 layout_mode = 1
 offset_left = 18.0
 offset_top = 18.0
@@ -70,8 +70,9 @@ texture = ExtResource("6_nail")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="NailTR" type="TextureRect" parent="PlankOverlay"]
+[node name="NailTR" type="TextureRect" parent="PlankOverlay" unique_id=2044937734]
 layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -50.0
@@ -83,7 +84,7 @@ texture = ExtResource("6_nail")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="NailBL" type="TextureRect" parent="PlankOverlay"]
+[node name="NailBL" type="TextureRect" parent="PlankOverlay" unique_id=1419953037]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 152.0
@@ -93,8 +94,9 @@ texture = ExtResource("6_nail")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="NailBR" type="TextureRect" parent="PlankOverlay"]
+[node name="NailBR" type="TextureRect" parent="PlankOverlay" unique_id=637361123]
 layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -48.0
@@ -106,24 +108,24 @@ texture = ExtResource("6_nail")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="PlankTitle" type="Label" parent="PlankOverlay"]
+[node name="PlankTitle" type="Label" parent="PlankOverlay" unique_id=1677893108]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("5_kalam")
-theme_override_font_sizes/font_size = 72
 theme_override_colors/font_color = Color(0.96, 0.9, 0.76, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("5_kalam")
+theme_override_font_sizes/font_size = 72
 text = "Minesweeper"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonColumn" type="VBoxContainer" parent="."]
+[node name="ButtonColumn" type="VBoxContainer" parent="." unique_id=1170154147]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -138,19 +140,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 18
 
-[node name="QuestForthButton" type="Button" parent="ButtonColumn"]
+[node name="QuestForthButton" type="Button" parent="ButtonColumn" unique_id=1479879403]
 layout_mode = 2
 text = "Quest Forth"
 
-[node name="ProvisionsButton" type="Button" parent="ButtonColumn"]
+[node name="ProvisionsButton" type="Button" parent="ButtonColumn" unique_id=1975340296]
 layout_mode = 2
 text = "Provisions"
 
-[node name="FleeButton" type="Button" parent="ButtonColumn"]
+[node name="FleeButton" type="Button" parent="ButtonColumn" unique_id=223485366]
 layout_mode = 2
 text = "Flee (Coward)"
 
-[node name="GuiltNote" type="Label" parent="."]
+[node name="GuiltNote" type="Label" parent="." unique_id=1887551248]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -163,19 +166,18 @@ offset_right = 480.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("5_kalam")
-theme_override_font_sizes/font_size = 32
 theme_override_colors/font_color = Color(0.55, 0.12, 0.1, 1)
 theme_override_colors/font_shadow_color = Color(0.95, 0.88, 0.7, 0.7)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("5_kalam")
+theme_override_font_sizes/font_size = 32
 text = "please don't leave, it took me 6 months to make this"
 horizontal_alignment = 1
 vertical_alignment = 1
-modulate = Color(1, 1, 1, 0)
 
 [connection signal="pressed" from="ButtonColumn/QuestForthButton" to="." method="_on_quest_forth_pressed"]
 [connection signal="pressed" from="ButtonColumn/ProvisionsButton" to="." method="_on_provisions_pressed"]
-[connection signal="pressed" from="ButtonColumn/FleeButton" to="." method="_on_flee_pressed"]
 [connection signal="mouse_entered" from="ButtonColumn/FleeButton" to="." method="_on_flee_mouse_entered"]
 [connection signal="mouse_exited" from="ButtonColumn/FleeButton" to="." method="_on_flee_mouse_exited"]
+[connection signal="pressed" from="ButtonColumn/FleeButton" to="." method="_on_flee_pressed"]
