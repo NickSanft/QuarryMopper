@@ -12,8 +12,6 @@ jobs:
       GODOT_VERSION: 4.6.1
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Cache Godot
         uses: actions/cache@v4
@@ -33,22 +31,6 @@ jobs:
             chmod +x godot
           fi
           echo "$HOME/godot" >> $GITHUB_PATH
-
-      - name: Install GdUnit4 addon
-        run: |
-          set -e
-          mkdir -p addons
-          if [ ! -d addons/gdUnit4 ]; then
-            curl -L -o gdunit4.zip https://github.com/MikeSchulze/gdUnit4/releases/latest/download/gdUnit4.zip || \
-              curl -L -o gdunit4.zip https://github.com/MikeSchulze/gdUnit4/archive/refs/heads/master.zip
-            unzip -o gdunit4.zip -d gdunit4_tmp
-            # Handle either release layout or source archive layout.
-            if [ -d gdunit4_tmp/addons/gdUnit4 ]; then
-              cp -r gdunit4_tmp/addons/gdUnit4 addons/
-            else
-              cp -r gdunit4_tmp/*/addons/gdUnit4 addons/
-            fi
-          fi
 
       - name: Import project
         run: |
