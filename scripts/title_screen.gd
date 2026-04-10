@@ -6,6 +6,7 @@ extends Control
 func _ready() -> void:
     _refresh_title()
     GameSettings.settings_changed.connect(_refresh_title)
+    SfxPlayer.play_music("ambient")
 
 
 func _refresh_title() -> void:

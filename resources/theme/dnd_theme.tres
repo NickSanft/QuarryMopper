@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b8t1qm0p0p0th1"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b8t1qm0p0p0th1"]
 
 [ext_resource type="FontFile" path="res://resources/fonts/UncialAntiqua-Regular.ttf" id="1_uncial"]
 
@@ -66,15 +66,6 @@ content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StatusStyle"]
-bg_color = Color(0.18, 0.1, 0.04, 0.85)
-border_width_top = 2
-border_color = Color(0.55, 0.36, 0.18, 1)
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-
 [resource]
 default_font = ExtResource("1_uncial")
 Button/colors/font_color = Color(0.96, 0.9, 0.76, 1)
@@ -88,4 +79,4 @@ Button/styles/focus = SubResource("BtnHover")
 Label/colors/font_color = Color(0.22, 0.14, 0.05, 1)
 Label/font_sizes/font_size = 20
 Panel/styles/panel = SubResource("PanelStyle")
-PanelContainer/styles/panel = SubResource("StatusStyle")
+PanelContainer/styles/panel = SubResource("PanelStyle")
