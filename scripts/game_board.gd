@@ -14,6 +14,7 @@ const GAME_OVER_SCENE := preload("res://scenes/game_over.tscn")
 var logic: BoardLogic
 var cells: Array = []  # Array[Cell], flat y * width + x
 var _game_over_overlay: CanvasLayer = null
+var _correction_assigned: bool = false
 
 
 func _ready() -> void:
@@ -27,6 +28,7 @@ func _start_new_game() -> void:
 	var preset := GameSettings.difficulty_preset()
 	logic = BoardLogic.new(preset.w, preset.h, preset.mines)
 	grid.columns = logic.width
+	_correction_assigned = false
 	_build_grid()
 	_refresh_status()
 
@@ -45,10 +47,19 @@ func _build_grid() -> void:
 			grid.add_child(c)
 			c.refresh_visual()
 			cells.append(c)
+	# Pick exactly one cell to be slightly askew. Never acknowledged anywhere.
+	var askew: Cell = cells[randi() % cells.size()]
+	askew.pivot_offset = Vector2(CELL_SIZE, CELL_SIZE) * 0.5
+	var degrees := randf_range(1.0, 3.0)
+	if randf() < 0.5:
+		degrees = -degrees
+	askew.rotation = deg_to_rad(degrees)
 
 
 func _on_cell_reveal(cell: Cell) -> void:
 	var newly := logic.reveal(cell.grid_pos.x, cell.grid_pos.y)
+	if not _correction_assigned and logic.mines_placed:
+		_assign_correction()
 	for i in newly:
 		_sync_cell(i)
 	if logic.game_over:
@@ -105,6 +116,28 @@ func _show_game_over(won: bool) -> void:
 	_game_over_overlay.retry_requested.connect(_start_new_game)
 	_game_over_overlay.title_requested.connect(_on_back_pressed)
 	add_child(_game_over_overlay)
+
+
+func _assign_correction() -> void:
+	# Find all non-mine, non-zero cells and pick one to display a "miscount".
+	var candidates: Array[int] = []
+	for y in range(logic.height):
+		for x in range(logic.width):
+			if not logic.cell_is_mine(x, y) and logic.cell_adjacent(x, y) > 0:
+				candidates.append(logic.idx(x, y))
+	if candidates.is_empty():
+		_correction_assigned = true
+		return
+	var target_idx: int = candidates[randi() % candidates.size()]
+	var target_cell: Cell = cells[target_idx]
+	var real := target_cell.adjacent_mines if target_cell.adjacent_mines > 0 \
+			else logic.cell_adjacent(target_cell.grid_pos.x, target_cell.grid_pos.y)
+	# Pick a "wrong" digit in [1, 8] that isn't the real one.
+	var wrong := real
+	while wrong == real:
+		wrong = randi_range(1, 8)
+	target_cell.correction_wrong = wrong
+	_correction_assigned = true
 
 
 func _on_back_pressed() -> void:

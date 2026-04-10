@@ -7,6 +7,7 @@ const SOUNDS := {
     "flag": preload("res://resources/audio/flag.ogg"),
     "explosion": preload("res://resources/audio/explosion.ogg"),
     "victory": preload("res://resources/audio/victory.ogg"),
+    "creak": preload("res://resources/audio/creak.ogg"),
 }
 
 const MUSIC := {

@@ -50,12 +50,14 @@ Bundled in `resources/audio/`. All CC0 (Creative Commons Zero) by Kenney
 - `victory.ogg` — `confirmation_001.ogg` from Kenney **Interface Sounds** pack
 - `explosion.ogg` — `impactBell_heavy_000.ogg` from Kenney **Impact Sounds** pack
   (the "doom knell" for an adventurer's demise)
+- `creak.ogg` — `creak1.ogg` from Kenney **RPG Audio** pack (used for the title plank's wood-creak slip)
 - `ambient_dungeon.ogg` — "Dungeon Ambience" by Creomoto, from OpenGameArt.org (CC0)
   - Source: https://opengameart.org/content/dungeon-ambience
 
 Source packs:
 - https://kenney.nl/assets/interface-sounds (CC0)
 - https://kenney.nl/assets/impact-sounds (CC0)
+- https://kenney.nl/assets/rpg-audio (CC0)
 
 ## Third-party code
 
