@@ -13,7 +13,7 @@ func before_test() -> void:
 
 
 func test_save_and_load_round_trip() -> void:
-    var a: Node = GameSettingsScript.new()
+    var a: Node = auto_free(GameSettingsScript.new())
     a.custom_title = "Doomsweeper"
     a.difficulty = GameSettingsScript.DIFFICULTY_ADVENTURER
     a.custom_width = 12
@@ -24,7 +24,7 @@ func test_save_and_load_round_trip() -> void:
     a.fullscreen = true
     a.save()
 
-    var b: Node = GameSettingsScript.new()
+    var b: Node = auto_free(GameSettingsScript.new())
     b.load_settings()
 
     assert_str(b.custom_title).is_equal("Doomsweeper")
@@ -38,14 +38,14 @@ func test_save_and_load_round_trip() -> void:
 
 
 func test_load_with_no_file_keeps_defaults() -> void:
-    var s: Node = GameSettingsScript.new()
+    var s: Node = auto_free(GameSettingsScript.new())
     s.load_settings()
     assert_str(s.custom_title).is_equal("Minesweeper")
     assert_int(s.difficulty).is_equal(GameSettingsScript.DIFFICULTY_APPRENTICE)
 
 
 func test_difficulty_preset_returns_expected_sizes() -> void:
-    var s: Node = GameSettingsScript.new()
+    var s: Node = auto_free(GameSettingsScript.new())
     s.difficulty = GameSettingsScript.DIFFICULTY_APPRENTICE
     assert_int(s.difficulty_preset()["mines"]).is_equal(10)
     s.difficulty = GameSettingsScript.DIFFICULTY_ADVENTURER

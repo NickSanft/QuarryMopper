@@ -68,6 +68,7 @@ func _on_cell_reveal(cell: Cell) -> void:
 			game_won.emit()
 			status_label.text = "Victory! The dungeon is cleared."
 			SfxPlayer.play("victory")
+			SfxPlayer.play("well_done")
 		else:
 			game_lost.emit()
 			status_label.text = "You take 1 damage"
