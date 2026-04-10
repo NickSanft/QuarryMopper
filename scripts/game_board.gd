@@ -16,8 +16,8 @@ var cells: Array = []  # Array[Cell], flat y * width + x
 var _game_over_overlay: CanvasLayer = null
 var _correction_assigned: bool = false
 var _flinching_cell: Cell = null
-var _flinch_rest_pos: Vector2
 var _flinch_tween: Tween = null
+var _cell_rest_positions: Dictionary = {}  # Cell -> Vector2
 
 
 func _ready() -> void:
@@ -161,10 +161,29 @@ func _on_cell_mouse_entered(cell: Cell) -> void:
 		return
 	if cell.state != Cell.State.HIDDEN:
 		return
-	# Only flinch near mines — the hovered cell must be adjacent to one.
+	# Only flinch near flagged mines — the hovered cell must neighbor a flagged mine.
 	var hx := cell.grid_pos.x
 	var hy := cell.grid_pos.y
 	if logic.cell_is_mine(hx, hy) or logic.cell_adjacent(hx, hy) == 0:
+		return
+	var has_flagged_mine := false
+	for dy in range(-1, 2):
+		for dx in range(-1, 2):
+			if dx == 0 and dy == 0:
+				continue
+			var nx := hx + dx
+			var ny := hy + dy
+			if logic.in_bounds(nx, ny):
+				var ni := logic.idx(nx, ny)
+				if logic.cell_is_mine(nx, ny) and cells[ni].state == Cell.State.FLAGGED:
+					has_flagged_mine = true
+					break
+		if has_flagged_mine:
+			break
+	if not has_flagged_mine:
+		return
+	# 10% chance to flinch — keeps it rare and surprising.
+	if randf() > 0.1:
 		return
 	# Pick a random neighboring hidden, non-mine cell to flinch.
 	var neighbors: Array[Cell] = []
@@ -188,10 +207,16 @@ func _on_cell_mouse_exited() -> void:
 	_end_flinch()
 
 
+func _get_cell_rest_pos(cell: Cell) -> Vector2:
+	if not _cell_rest_positions.has(cell):
+		_cell_rest_positions[cell] = cell.position
+	return _cell_rest_positions[cell]
+
+
 func _start_flinch(victim: Cell, source: Cell) -> void:
 	_end_flinch()
 	_flinching_cell = victim
-	_flinch_rest_pos = victim.position
+	var rest_pos := _get_cell_rest_pos(victim)
 	# Shift away from the hovered cell.
 	var dir := Vector2(victim.grid_pos - source.grid_pos).normalized()
 	if dir.length_squared() < 0.01:
@@ -199,18 +224,17 @@ func _start_flinch(victim: Cell, source: Cell) -> void:
 	var shift := dir * 3.0
 	if _flinch_tween and _flinch_tween.is_valid():
 		_flinch_tween.kill()
+	# Snap to rest first so the tween starts from a clean state.
+	victim.position = rest_pos
 	_flinch_tween = create_tween()
 	_flinch_tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-	_flinch_tween.tween_property(victim, "position", _flinch_rest_pos + shift, 0.25)
+	_flinch_tween.tween_property(victim, "position", rest_pos + shift, 0.25)
 
 
 func _end_flinch() -> void:
 	if _flinching_cell and is_instance_valid(_flinching_cell):
 		if _flinch_tween and _flinch_tween.is_valid():
 			_flinch_tween.kill()
-		_flinch_tween = create_tween()
-		_flinch_tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		_flinch_tween.tween_property(
-			_flinching_cell, "position",
-			_flinch_rest_pos, 0.15)
+		var rest_pos := _get_cell_rest_pos(_flinching_cell)
+		_flinching_cell.position = rest_pos
 	_flinching_cell = null
