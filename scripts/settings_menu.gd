@@ -19,7 +19,7 @@ func _ready() -> void:
     difficulty_option.add_item("Custom", GameSettings.DIFFICULTY_CUSTOM)
 
     title_edit.text = GameSettings.custom_title
-    title_edit.max_length = 24
+    title_edit.max_length = 26
     difficulty_option.select(GameSettings.difficulty)
     width_spin.value = GameSettings.custom_width
     height_spin.value = GameSettings.custom_height
